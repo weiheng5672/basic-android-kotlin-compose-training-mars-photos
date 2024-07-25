@@ -95,12 +95,20 @@ class MarsViewModel(
      * Factory for [MarsViewModel] that takes [MarsPhotosRepository] as a dependency
      */
     companion object {
+
         val Factory: ViewModelProvider.Factory = viewModelFactory {
+
             initializer {
+
                 val application = (this[APPLICATION_KEY] as MarsPhotosApplication)
+
                 val marsPhotosRepository = application.container.marsPhotosRepository
+
                 MarsViewModel(marsPhotosRepository = marsPhotosRepository)
+
             }
+
         }
+
     }
 }
