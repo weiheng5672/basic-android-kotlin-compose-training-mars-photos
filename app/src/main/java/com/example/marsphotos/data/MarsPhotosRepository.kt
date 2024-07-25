@@ -39,9 +39,15 @@ interface MarsPhotosRepository {
 //他負責 透過Retrofit的service去實作介面的功能
 
 //這些資料將提供給 UI層 也就是ViewModel去使用
+
 class NetworkMarsPhotosRepository(
     private val marsApiService: MarsApiService
 ) : MarsPhotosRepository {
     /** Fetches list of MarsPhoto from marsApi*/
     override suspend fun getMarsPhotos(): List<MarsPhoto> = marsApiService.getPhotos()
 }
+
+//在這邊解釋下 簡單的功能這麼分開 乍看是複雜化
+//但是 我只能透過 Retrofit 從網路抓取資料嗎?
+//如果 我只是想測試 可不可以先用假資料進行?
+//這種分離 將使得 這種想法變的可行
