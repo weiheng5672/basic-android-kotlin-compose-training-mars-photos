@@ -84,12 +84,15 @@ fun ErrorScreen(modifier: Modifier = Modifier) {
  * ResultScreen displaying number of photos retrieved.
  */
 @Composable
-fun ResultScreen(photos: String, modifier: Modifier = Modifier) {
+fun ResultScreen(
+    photos: List<MarsPhoto>,
+    modifier: Modifier = Modifier
+) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
     ) {
-        Text(text = photos)
+        Text(text = "Success. ${photos.size} Mars photos retrieved")
     }
 }
 
@@ -109,11 +112,11 @@ fun ErrorScreenPreview() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PhotosGridScreenPreview() {
-    MarsPhotosTheme {
-        val mockData = List(10) { MarsPhoto("$it", "") }
-        ResultScreen(stringResource(R.string.placeholder_success))
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PhotosGridScreenPreview() {
+//    MarsPhotosTheme {
+//        val mockData = List(10) { MarsPhoto("$it", "") }
+//        ResultScreen(stringResource(R.string.placeholder_success))
+//    }
+//}
