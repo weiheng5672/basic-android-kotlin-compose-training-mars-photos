@@ -64,9 +64,24 @@ class MarsViewModel(
             marsUiState = MarsUiState.Loading
             marsUiState = try {
 
+                //注意看 這裡是由marsPhotosRepository的getMarsPhotos()方法
+                //去取得 UI需要呈現的東西
+                //ViewModel這裡 不負責直接使用到網路的功能
+                //也就是 ViewModel這裡 沒有使用到Retrofit的service
+                //ViewModel這裡 只是透過 Repository 取得這些資料
+                //至於 Repository 怎麼取得這些資料 ViewModel不用知道
+                //這就是所謂的 UI 和 資料 分開
+                //ViewModel這裡代表UI 代表UI的狀態
+                //Repository那邊代表 從網路取得資料
+
                 MarsUiState.Success(
                     photos = marsPhotosRepository.getMarsPhotos()
                 )
+
+                //另外 要強調的是 本例中 尚未涉及 資料的儲存 也就是資料庫的概念
+                //Repository那邊 只是負責取得資料 並沒有儲存資料
+                //ViewModel這裡 只是代表 UI的狀態 雖然確實"暫存"了這些些資料
+                //但這並非真正的儲存 當程式關閉 資料也會消失
 
             } catch (e: IOException) {
                 MarsUiState.Error

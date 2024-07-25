@@ -21,6 +21,9 @@ import com.example.marsphotos.network.MarsApiService
 /**
  * Repository that fetch mars photos list from marsApi.
  */
+//這是一個介面 他的方法是一個函數
+//這個函數 輸出 MarsPhoto的List
+//但是 他要怎麼實現 這個介面本身沒有定義
 interface MarsPhotosRepository {
     /** Fetches list of MarsPhoto from marsApi */
     suspend fun getMarsPhotos(): List<MarsPhoto>
@@ -29,6 +32,13 @@ interface MarsPhotosRepository {
 /**
  * Network Implementation of Repository that fetch mars photos list from marsApi.
  */
+//這是實現上面那個介面的物件
+//這個物件雖然身為所謂的 Repository 但他不儲存資料 只是抓取資料
+
+//他負責 使用Retrofit的service去取得資料
+//他負責 透過Retrofit的service去實作介面的功能
+
+//這些資料將提供給 UI層 也就是ViewModel去使用
 class NetworkMarsPhotosRepository(
     private val marsApiService: MarsApiService
 ) : MarsPhotosRepository {
