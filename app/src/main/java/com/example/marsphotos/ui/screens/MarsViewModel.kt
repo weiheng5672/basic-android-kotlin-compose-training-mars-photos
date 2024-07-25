@@ -30,9 +30,9 @@ import java.io.IOException
  * UI state for the Home screen
  */
 sealed interface MarsUiState {
-    data class Success(val photos: String) : MarsUiState
-    object Error : MarsUiState
-    object Loading : MarsUiState
+    data class Success(val photos: List<MarsPhoto>) : MarsUiState
+    data object Error : MarsUiState
+    data object Loading : MarsUiState
 }
 
 class MarsViewModel : ViewModel() {
@@ -51,14 +51,25 @@ class MarsViewModel : ViewModel() {
      * Gets Mars photos information from the Mars API Retrofit service and updates the
      * [MarsPhoto] [List] [MutableList].
      */
-    fun getMarsPhotos() {
+    // 這個部分就是所謂的 UI層 和 資料層 沒有分開的地方
+    // 這個檔案是MarsViewModel 代表UI的狀態
+    // 確實如此 他唯一的一個屬性 就是marsUiState 顧名思義 望文生義
+    // UI共三種狀態 分別是 Success Error Loading
+    // 其中只有 Success 有資料 至於他有什麼樣的資料 封裝在他的裡面
+    // 本例中 是由 MarsPhoto 組成的List
+    // 而這些資料 也是由 這個類 用他的方法取抓取的
+    // 而這就是所謂的資料層和UI層沒有分開的意思
+    private fun getMarsPhotos() {
         viewModelScope.launch {
             marsUiState = MarsUiState.Loading
             marsUiState = try {
-                val listResult = MarsApi.retrofitService.getPhotos()
+
                 MarsUiState.Success(
-                    "Success: ${listResult.size} Mars photos retrieved"
+                    //就是在這裡從網路抓取資料 並作為 實參
+                    //指派給 MarsUiState.Success 的photos
+                    photos = MarsApi.retrofitService.getPhotos()
                 )
+
             } catch (e: IOException) {
                 MarsUiState.Error
             } catch (e: HttpException) {

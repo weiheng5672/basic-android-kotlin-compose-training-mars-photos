@@ -28,14 +28,22 @@ import retrofit2.http.GET
 
     /**
      * Use the Retrofit builder to build a retrofit object using a kotlinx.serialization converter
+     * 這部分就是建構一個 Retrofit物件 去處理和網路介接 的功能
+     * 這個物件還配備了 序列化/反序列化 轉換器 可以將網路格式資料和Kotlin物件互相轉換
      */
+    val json = Json { ignoreUnknownKeys = true }
+
+    val contentType = "application/json".toMediaType()
+
     private val retrofit = Retrofit.Builder()
-        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+        .addConverterFactory(json.asConverterFactory(contentType))
         .baseUrl(BASE_URL)
         .build()
 
     /**
      * Retrofit service object for creating api calls
+     * 這部分定義了需要利用 retrofit 的自訂義函數
+     * 並使用註解 標註了 哪些函數 需要使用 哪些與網路相關的請求
      */
     interface MarsApiService {
         @GET("photos")
@@ -44,6 +52,7 @@ import retrofit2.http.GET
 
     /**
      * A public Api object that exposes the lazy-initialized Retrofit service
+     * 定義一個  以Retrofit物件為核心 實現自訂義介面功能的 物件
      */
     object MarsApi {
         val retrofitService: MarsApiService by lazy {
