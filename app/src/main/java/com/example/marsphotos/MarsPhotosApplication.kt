@@ -32,4 +32,9 @@ class MarsPhotosApplication : Application() {
  現在 MarsViewModel 是透過 Container 從 Repository 去取得資料
  這邊就只是個統一管理容器的地方
  MarsViewModel 會透過這裡 去取得 它的依賴
+
+ 容器是指包含應用程式所需依附元件的物件。
+ 這些依附元件用於整個應用程式，
+ 因此必須位於所有Activity均可使用的通用位置，就是這裡
+
  */
