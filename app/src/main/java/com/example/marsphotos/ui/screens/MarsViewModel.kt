@@ -111,4 +111,29 @@ class MarsViewModel(
         }
 
     }
+    /*
+     第一：ViewModelFactory
+     現在這個ViewModel 使用 所謂的依賴注入
+     當需要用到 資料的時候
+     程式才會去形成取得資料的物件 注入這個 ViewModel
+     也就是說 現在這個ViewModel 它的建構式需要輸入參數了
+     安卓預設的ViewModel 是做不到這件事的
+     需要用一種所謂的 ViewModelFactory 的概念
+     去生成 建構式有輸入引數的ViewModel
+
+     */
+
+    /*
+     第二：companion object
+     先說它的作用，它是一個物件
+     它在類別載入時被初始化
+     將所需的依賴項注入到 ViewModel 中
+     並且可以在沒有類別實例的情況下存取
+
+     它與類別的具體實例無關，不受實例化的影響
+     這是 所謂的 類別的一個 靜態部分
+
+     類別的實例可以直接存取 companion object 中定義的靜態成員
+
+     */
 }

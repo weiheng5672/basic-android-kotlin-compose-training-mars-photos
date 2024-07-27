@@ -27,3 +27,9 @@ class MarsPhotosApplication : Application() {
         container = DefaultAppContainer()
     }
 }
+
+/*
+ 現在 MarsViewModel 是透過 Container 從 Repository 去取得資料
+ 這邊就只是個統一管理容器的地方
+ MarsViewModel 會透過這裡 去取得 它的依賴
+ */
