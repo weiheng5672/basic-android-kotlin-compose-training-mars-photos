@@ -37,3 +37,25 @@ class NetworkMarsPhotosRepository(
     /** Fetches list of MarsPhoto from marsApi*/
     override suspend fun getMarsPhotos(): List<MarsPhoto> = marsApiService.getPhotos()
 }
+
+/*
+ 小結：
+
+     這邊實作一個存放區 將與 網路服務的直接互動
+     從 ViewModel 中抽離出來
+
+     先定義一個介面
+     再去定義 實現那個介面的類
+     而不是 直接定義一個類 在裡面實現內建那個介面的方法
+     這分離了 功能本身 和 實現功能的東西
+
+     使用這個存放區的地方 是指向
+     一個實現了MarsPhotosRepository介面的類
+
+     如果我想對存放區做一些修改和測試
+     修改了NetworkMarsPhotosRepository
+     使用這個存放區的地方 依然是指向
+     一個實現了MarsPhotosRepository介面的類
+
+     不需要配合這裡做出變動
+ */
